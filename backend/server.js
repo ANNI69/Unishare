@@ -20,9 +20,6 @@ app.use('/api/comments', commentRoutes);
 app.use('/api/posts', postRoutes);
 
 
-// const PORT = process.env.PORT || 3000;
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 connectToDB()
   .then(() => {
     app.listen(5000, () => {
