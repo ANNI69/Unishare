@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import Community from '../models/Community.model.js';
-import Post from '../models/post.model.js';
+import Community from '../Models/Community.model.js';
+import Post from '../Models/Post.model.js';
 
 export const authenticate = (req, res, next) => {
   try {

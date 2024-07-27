@@ -1,4 +1,4 @@
-import Post from '../models/Post.model.js';
+import Post from '../Models/Post.model.js';
 import Community from '../Models/Community.model.js';
 
 export const createPost = async (req, res) => {
