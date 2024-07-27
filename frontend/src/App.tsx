@@ -4,6 +4,7 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable.tsx";
+import GradualSpacing from "./components/magicui/gradual-spacing";
 
 function App() {
   return (
@@ -31,7 +32,11 @@ function App() {
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
                     <div className="flex h-full items-center justify-center p-6">
-                      <span className="font-semibold">Four</span>
+                      <GradualSpacing
+      className="font-display text-center text-4xl font-bold tracking-[-0.1em]  text-black dark:text-white md:text-7xl md:leading-[5rem]"
+                        text="Hello to the world of Unishare ✨"
+                     
+                      />
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
