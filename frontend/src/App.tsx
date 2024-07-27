@@ -1,10 +1,10 @@
 import "./App.css";
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/Navbar/Navbar.tsx";
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
-} from "@/components/ui/resizable";
+} from "@/components/ui/resizable.tsx";
 
 function App() {
   return (
