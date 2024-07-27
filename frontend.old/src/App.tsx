@@ -1,4 +1,5 @@
-import Navbar from "@/components/Navbar";
+import "./App.css";
+import Navbar from "@/components/Navbar/Navbar.tsx";
 import {
   ResizablePanelGroup,
   ResizablePanel,
