@@ -4,9 +4,30 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable.tsx";
-import GradualSpacing from "./components/magicui/gradual-spacing";
-
+import { useEffect, useState } from "react";
+import Loading from "./components/Loading";
+import { AnimatePresence } from "framer-motion";
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000); // Adjust time as needed
+
+
+    return () => clearTimeout(timer);
+
+  }, [])
+
+  if (loading)
+    return <AnimatePresence>
+      {loading && <Loading />}
+    </AnimatePresence>
+
+
+
   return (
     <>
       <div className="flex flex-col h-screen w-screen">
@@ -32,10 +53,7 @@ function App() {
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
                     <div className="flex h-full items-center justify-center p-6">
-                      <GradualSpacing
-                        className="font-display text-center text-4xl font-bold tracking-[-0.1em]  text-black dark:text-white md:text-7xl md:leading-[5rem]"
-                        text="Hello to the world of Unishare ✨"
-                      />
+                      Feed
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
