@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// schema.prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -13,3 +9,76 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  username       String    @unique
+  email          String    @unique
+  passwordHash   String
+  firstName      String?
+  lastName       String?
+  bio            String?
+  avatarUrl      String?
+  isAdmin        Boolean   @default(false)
+  isModerator    Boolean   @default(false)
+  karma          Int       @default(0)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  posts          Post[]    @relation("PostAuthor")
+  comments       Comment[] @relation("CommentAuthor")
+  communityIds   String[]  @db.ObjectId
+  moderatingIds  String[]  @db.ObjectId
+  upvotedPostIds String[]  @db.ObjectId
+  downvotedPostIds String[] @db.ObjectId
+  upvotedCommentIds String[] @db.ObjectId
+  downvotedCommentIds String[] @db.ObjectId
+
+  communities    Community[] @relation("CommunityMembers", fields: [communityIds], references: [id])
+  moderating     Community[] @relation("CommunityModerators", fields: [moderatingIds], references: [id])
+  upvotedPosts   Post[]      @relation("PostUpvotes", fields: [upvotedPostIds], references: [id])
+  downvotedPosts Post[]      @relation("PostDownvotes", fields: [downvotedPostIds], references: [id])
+  upvotedComments Comment[]  @relation("CommentUpvotes", fields: [upvotedCommentIds], references: [id])
+  downvotedComments Comment[] @relation("CommentDownvotes", fields: [downvotedCommentIds], references: [id])
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String
+  authorId  String   @db.ObjectId
+  author    User     @relation("PostAuthor", fields: [authorId], references: [id])
+  
+  upvotedByIds String[] @db.ObjectId
+  downvotedByIds String[] @db.ObjectId
+
+  upvotedBy User[] @relation("PostUpvotes", fields: [upvotedByIds], references: [id])
+  downvotedBy User[] @relation("PostDownvotes", fields: [downvotedByIds], references: [id])
+  // ... other fields
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  authorId  String   @db.ObjectId
+  author    User     @relation("CommentAuthor", fields: [authorId], references: [id])
+  
+  upvotedByIds String[] @db.ObjectId
+  downvotedByIds String[] @db.ObjectId
+
+  upvotedBy User[] @relation("CommentUpvotes", fields: [upvotedByIds], references: [id])
+  downvotedBy User[] @relation("CommentDownvotes", fields: [upvotedByIds], references: [id])
+  // ... other fields
+}
+
+model Community {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  
+  memberIds String[] @db.ObjectId
+  moderatorIds String[] @db.ObjectId
+
+  members   User[]   @relation("CommunityMembers", fields: [memberIds], references: [id])
+  moderators User[]  @relation("CommunityModerators", fields: [moderatorIds], references: [id])
+  // ... other fields
+}
