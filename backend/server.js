@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use routes
-app.use("/api/communities", communityRoutes);
+app.use('/api/communities', communityRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/posts', postRoutes);
 

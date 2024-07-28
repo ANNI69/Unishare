@@ -1,23 +1,24 @@
-import Comment from '../Models/Comment.model.js';
-import Post from '../Models/Post.model.js';
+// commentController.js
+
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const createComment = async (req, res) => {
   try {
-    const post = await Post.findById(req.body.post);
-    if (!post) {
-      return res.status(404).json({ message: 'Post not found' });
-    }
+    const { content, postId } = req.body;
+    const authorId = req.user.id; // Assuming you have user info in req.user after authentication
 
-    const newComment = new Comment({
-      content: req.body.content,
-      author: req.user._id,
-      post: req.body.post,
-      parentComment: req.body.parentComment
+    const newComment = await prisma.comment.create({
+      data: {
+        content,
+        author: { connect: { id: authorId } },
+        post: { connect: { id: postId } }
+      },
+      include: {
+        author: { select: { id: true, username: true } }
+      }
     });
-
-    await newComment.save();
-    post.commentCount++;
-    await post.save();
 
     res.status(201).json(newComment);
   } catch (error) {
@@ -27,12 +28,20 @@ export const createComment = async (req, res) => {
 
 export const getComment = async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.id)
-      .populate('author', 'username')
-      .populate('replies');
+    const { id } = req.params;
+    const comment = await prisma.comment.findUnique({
+      where: { id },
+      include: {
+        author: { select: { id: true, username: true } },
+        upvotedBy: { select: { id: true } },
+        downvotedBy: { select: { id: true } }
+      }
+    });
+
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
+
     res.json(comment);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -41,18 +50,26 @@ export const getComment = async (req, res) => {
 
 export const updateComment = async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.id);
+    const { id } = req.params;
+    const { content } = req.body;
+    const userId = req.user.id;
+
+    const comment = await prisma.comment.findUnique({ where: { id } });
+
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
-    if (comment.author.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: 'Not authorized to edit this comment' });
+
+    if (comment.authorId !== userId) {
+      return res.status(403).json({ message: 'Not authorized to update this comment' });
     }
-    comment.content = req.body.content;
-    comment.isEdited = true;
-    comment.editedAt = Date.now();
-    await comment.save();
-    res.json(comment);
+
+    const updatedComment = await prisma.comment.update({
+      where: { id },
+      data: { content }
+    });
+
+    res.json(updatedComment);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -60,14 +77,21 @@ export const updateComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.id);
+    const { id } = req.params;
+    const userId = req.user.id;
+
+    const comment = await prisma.comment.findUnique({ where: { id } });
+
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
-    if (comment.author.toString() !== req.user._id.toString()) {
+
+    if (comment.authorId !== userId) {
       return res.status(403).json({ message: 'Not authorized to delete this comment' });
     }
-    await comment.softDelete();
+
+    await prisma.comment.delete({ where: { id } });
+
     res.json({ message: 'Comment deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -76,13 +100,62 @@ export const deleteComment = async (req, res) => {
 
 export const voteComment = async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.id);
+    const { id } = req.params;
+    const { voteType } = req.body; // 'upvote' or 'downvote'
+    const userId = req.user.id;
+
+    const comment = await prisma.comment.findUnique({ where: { id } });
+
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
-    await comment.vote(req.user._id, req.body.voteType);
-    res.json({ message: 'Vote recorded successfully', score: comment.score });
+
+    let updateData = {};
+
+    if (voteType === 'upvote') {
+      updateData = {
+        upvotedByIds: { push: userId },
+        downvotedByIds: { set: comment.downvotedByIds.filter(id => id !== userId) }
+      };
+    } else if (voteType === 'downvote') {
+      updateData = {
+        downvotedByIds: { push: userId },
+        upvotedByIds: { set: comment.upvotedByIds.filter(id => id !== userId) }
+      };
+    } else {
+      return res.status(400).json({ message: 'Invalid vote type' });
+    }
+
+    const updatedComment = await prisma.comment.update({
+      where: { id },
+      data: updateData,
+      include: {
+        upvotedBy: { select: { id: true } },
+        downvotedBy: { select: { id: true } }
+      }
+    });
+
+    res.json(updatedComment);
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+export const getCommentsByPost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const comments = await prisma.comment.findMany({
+      where: { postId },
+      include: {
+        author: { select: { id: true, username: true } },
+        upvotedBy: { select: { id: true } },
+        downvotedBy: { select: { id: true } }
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
