@@ -14,6 +14,8 @@ import { Separator } from "./ui/separator";
 import { Skeleton } from "./ui/skeleton";
 import { Label } from "./ui/label";
 import { useTheme } from "./theme-provider";
+import { Button } from "./ui/button";
+import { ChevronRightIcon, Plus } from "lucide-react";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
@@ -23,7 +25,10 @@ const Navbar = () => {
     <div className="flex items-center justify-between w-full">
       <Logo />
       <SearchBar />
-
+      <Button className="rounded-full m-4 flex items-center justify-center">
+        <Plus size={18} />
+        Create
+      </Button>
       <Sheet>
         <SheetTrigger>
           <Avatar>
