@@ -9,7 +9,7 @@ import {
   voteComment,
   getCommentsByPost,
 } from "../Controllers/Comment.controller.js";
-import { authenticate } from "../middleware/authMiddleware.js"; // Assuming you have an authentication middleware
+import { authenticate } from "../Middlewares/Auth.middleware.js";
 
 const router = express.Router();
 
