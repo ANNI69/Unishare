@@ -6,23 +6,22 @@ import {
 } from "@/components/ui/resizable.tsx";
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setLoading(false);
     }, 3000); // Adjust time as needed
 
 
-    return () => clearTimeout(timer);
 
   }, [])
 
   if (loading)
-    return <AnimatePresence>
+    return <AnimatePresence mode="popLayout" >
       {loading && <Loading />}
     </AnimatePresence>
 
@@ -30,7 +29,10 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col h-screen w-screen">
+      <motion.div className="flex flex-col h-screen w-screen" layout
+        initial={{opacity:0}}
+        animate={{opacity:1}}
+      >
         <ResizablePanelGroup
           direction="horizontal"
           className="max-w-screen rounded-lg border"
@@ -67,7 +69,7 @@ function App() {
             </ResizablePanelGroup>
           </ResizablePanel>
         </ResizablePanelGroup>
-      </div>
+      </motion.div>
     </>
   );
 }
