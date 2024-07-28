@@ -33,9 +33,8 @@ function App() {
                   <ResizablePanel defaultSize={90}>
                     <div className="flex h-full items-center justify-center p-6">
                       <GradualSpacing
-      className="font-display text-center text-4xl font-bold tracking-[-0.1em]  text-black dark:text-white md:text-7xl md:leading-[5rem]"
+                        className="font-display text-center text-4xl font-bold tracking-[-0.1em]  text-black dark:text-white md:text-7xl md:leading-[5rem]"
                         text="Hello to the world of Unishare ✨"
-                     
                       />
                     </div>
                   </ResizablePanel>
