@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
+import  AnimatedListDemo  from "./components/Notification";
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -24,8 +25,6 @@ function App() {
     return <AnimatePresence mode="popLayout" >
       {loading && <Loading />}
     </AnimatePresence>
-
-
 
   return (
     <>
@@ -60,8 +59,8 @@ function App() {
                   </ResizablePanel>
                   <ResizableHandle />
                   <ResizablePanel defaultSize={30}>
-                    <div className="flex h-full items-center justify-center p-6">
-                      <span className="font-semibold">Four</span>
+                    <div className="flex h-full items-center justify-center">
+                      <AnimatedListDemo />
                     </div>
                   </ResizablePanel>
                 </ResizablePanelGroup>
