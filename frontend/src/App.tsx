@@ -9,7 +9,7 @@ import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
 
 import  AnimatedListDemo  from "./components/Notification";
-import SideBar from "@/components/Sidebar";
+import Sidebar from "./components/Sidebar";
 import Feed from "./components/Feed";
 function App() {
   const [loading, setLoading] = useState(true);
@@ -56,7 +56,7 @@ function App() {
                   <ResizablePanel defaultSize={30}>
                     <div className="flex h-full items-center justify-center p-6">
 
-                      <SideBar/> 
+                      <Sidebar/> 
 
                     </div>
                   </ResizablePanel>
