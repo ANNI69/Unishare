@@ -9,12 +9,11 @@ import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
 
 import  AnimatedListDemo  from "./components/Notification";
-import Sidebar from "./components/Sidebar";
-import { Button } from "./components/ui/button";
-
+import SideBar from "./components/SideBar";
+import Feed from "./components/Feed";
 function App() {
   const [loading, setLoading] = useState(true);
-  const [fullScreen, setFullScreen] = useState(false);
+  const [fullScreen, setFullScreen] = useState(true);
 
   useEffect(() => {
     window.process = {
@@ -64,7 +63,7 @@ function App() {
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
                     <div className="flex h-full items-center justify-center p-6">
-                      Feed
+                      <Feed/>
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />

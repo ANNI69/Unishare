@@ -67,3 +67,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide vertical scrollbar */
+*::-webkit-scrollbar-vertical {
+  display: none;
+}
