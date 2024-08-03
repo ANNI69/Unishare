@@ -54,7 +54,6 @@ model Post {
 
   upvotedBy User[] @relation("PostUpvotes", fields: [upvotedByIds], references: [id])
   downvotedBy User[] @relation("PostDownvotes", fields: [downvotedByIds], references: [id])
-  // ... other fields
 }
 
 model Comment {
@@ -80,5 +79,5 @@ model Community {
 
   members   User[]   @relation("CommunityMembers", fields: [memberIds], references: [id])
   moderators User[]  @relation("CommunityModerators", fields: [moderatorIds], references: [id])
-  // ... other fields
+  
 }

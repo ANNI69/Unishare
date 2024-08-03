@@ -7,11 +7,19 @@ import {
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
-import SideBar from "./components/SideBar";
+
+import  AnimatedListDemo  from "./components/Notification";
+import Sidebar from "./components/Sidebar";
+import { Button } from "./components/ui/button";
+
 function App() {
   const [loading, setLoading] = useState(true);
+  const [fullScreen, setFullScreen] = useState(false);
 
   useEffect(() => {
+    window.process = {
+      ...window.process,
+    };
 
     setTimeout(() => {
       setLoading(false);
@@ -25,8 +33,6 @@ function App() {
     return <AnimatePresence mode="popLayout" >
       {loading && <Loading />}
     </AnimatePresence>
-
-
 
   return (
     <>
@@ -48,9 +54,11 @@ function App() {
               <ResizableHandle contentEditable />
               <ResizablePanel defaultSize={90}>
                 <ResizablePanelGroup direction="horizontal">
-                  <ResizablePanel defaultSize={25}>
+                  <ResizablePanel defaultSize={30}>
                     <div className="flex h-full items-center justify-center p-6">
+
                       <SideBar/> 
+
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
@@ -60,11 +68,15 @@ function App() {
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
-                  <ResizablePanel defaultSize={30}>
-                    <div className="flex h-full items-center justify-center p-6">
-                      <span className="font-semibold">Four</span>
-                    </div>
-                  </ResizablePanel>
+                  {
+                    fullScreen && (
+                      <ResizablePanel defaultSize={30}>
+                        <div className="flex h-full items-center justify-center p-6">
+                          <AnimatedListDemo />
+                        </div>
+                      </ResizablePanel>
+                    )
+                  }
                 </ResizablePanelGroup>
               </ResizablePanel>
             </ResizablePanelGroup>

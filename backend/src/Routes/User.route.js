@@ -5,9 +5,9 @@ import {
   deleteUser,
   loginUser,
 } from "../Controllers/User.controller.js";
-
 import express from "express";
 import { authenticate } from "../Middlewares/Auth.middleware.js";
+
 
 const router = express.Router();
 
