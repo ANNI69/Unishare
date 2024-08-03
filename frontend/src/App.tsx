@@ -8,10 +8,17 @@ import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
 import  AnimatedListDemo  from "./components/Notification";
+import Sidebar from "./components/Sidebar";
+import { Button } from "./components/ui/button";
+
 function App() {
   const [loading, setLoading] = useState(true);
+  const [fullScreen, setFullScreen] = useState(false);
 
   useEffect(() => {
+    window.process = {
+      ...window.process,
+    };
 
     setTimeout(() => {
       setLoading(false);
@@ -46,9 +53,9 @@ function App() {
               <ResizableHandle contentEditable />
               <ResizablePanel defaultSize={90}>
                 <ResizablePanelGroup direction="horizontal">
-                  <ResizablePanel defaultSize={25}>
+                  <ResizablePanel defaultSize={30}>
                     <div className="flex h-full items-center justify-center p-6">
-                      <span className="font-semibold">Sidebar</span>
+                      <Sidebar />
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
@@ -58,11 +65,15 @@ function App() {
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
-                  <ResizablePanel defaultSize={30}>
-                    <div className="flex h-full items-center justify-center">
-                      <AnimatedListDemo />
-                    </div>
-                  </ResizablePanel>
+                  {
+                    fullScreen && (
+                      <ResizablePanel defaultSize={30}>
+                        <div className="flex h-full items-center justify-center p-6">
+                          <AnimatedListDemo />
+                        </div>
+                      </ResizablePanel>
+                    )
+                  }
                 </ResizablePanelGroup>
               </ResizablePanel>
             </ResizablePanelGroup>
