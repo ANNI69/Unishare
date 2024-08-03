@@ -9,7 +9,7 @@ import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
 
 import  AnimatedListDemo  from "./components/Notification";
-import SideBar from "./components/SideBar";
+import SideBar from "@/components/Sidebar";
 import Feed from "./components/Feed";
 function App() {
   const [loading, setLoading] = useState(true);
