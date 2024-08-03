@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
+
 import  AnimatedListDemo  from "./components/Notification";
 import Sidebar from "./components/Sidebar";
 import { Button } from "./components/ui/button";
@@ -55,7 +56,9 @@ function App() {
                 <ResizablePanelGroup direction="horizontal">
                   <ResizablePanel defaultSize={30}>
                     <div className="flex h-full items-center justify-center p-6">
-                      <Sidebar />
+
+                      <SideBar/> 
+
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
