@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
+import SideBar from "./components/SideBar";
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -49,7 +50,7 @@ function App() {
                 <ResizablePanelGroup direction="horizontal">
                   <ResizablePanel defaultSize={25}>
                     <div className="flex h-full items-center justify-center p-6">
-                      <span className="font-semibold">Sidebar</span>
+                      <SideBar/> 
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
