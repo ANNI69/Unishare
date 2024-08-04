@@ -11,6 +11,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import  AnimatedListDemo  from "./components/Notification";
 import Sidebar from "./components/Sidebar";
 import Feed from "./components/Feed";
+import { Button } from "./components/ui/button";
+import PopularCommunities from "./components/PopularCommunities";
+import { Separator } from "./components/ui/separator";
 function App() {
   const [loading, setLoading] = useState(true);
   const [fullScreen, setFullScreen] = useState(true);
@@ -53,25 +56,28 @@ function App() {
               <ResizableHandle contentEditable />
               <ResizablePanel defaultSize={90}>
                 <ResizablePanelGroup direction="horizontal">
-                  <ResizablePanel defaultSize={30}>
+                  <ResizablePanel defaultSize={35}>
                     <div className="flex h-full items-center justify-center p-6">
-
                       <Sidebar/> 
-
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
-                    <div className="flex h-full items-center justify-center p-6">
+                    <div className="flex h-full items-center justify-center">
                       <Feed/>
+                      {/* <Button onClick={() => setFullScreen(!fullScreen)}>Toggle Full Screen</Button> */}
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
                   {
                     fullScreen && (
-                      <ResizablePanel defaultSize={30}>
-                        <div className="flex h-full items-center justify-center p-6">
-                          <AnimatedListDemo />
+                      <ResizablePanel defaultSize={40}>
+                        <div className="flex h-full flex-col pt-3">
+                          <AnimatedListDemo /> 
+                          <Separator className="my-4" />
+                          {/* // If user is logged in, show notifications */}
+                          <PopularCommunities /> 
+                          {/* // show popular communities, if user is not logged in, show login form */}
                         </div>
                       </ResizablePanel>
                     )

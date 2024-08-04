@@ -1,29 +1,54 @@
-import { ArrowUp, Bookmark } from "lucide-react"
-import { Button } from "./ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card"
-import PostCard from "./PostCard"
+import { ArrowDown, ArrowUp, Bookmark } from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { ChatBubbleIcon } from "@radix-ui/react-icons";
 
 const Feed = () => {
   return (
-    <div className="w-2/3 h-full  flex flex-col p-3 overflow-y-scroll" >
-      <Card className="m-4">
+    <div className="w-full h-full  flex flex-col  overflow-y-scroll">
+      <Card className="m-4 hover:bg-slate-800">
         <CardHeader>
-          <CardTitle>Jello</CardTitle>
+          <div className="flex flex-row items-center gap-2">
+            <img
+              height={40}
+              width={40}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbIkQd0Vd4G0A-D-j8WKvaDCE4Mo4B01uTJg&s"
+              className="rounded-full"
+            />
+            <h4>John Doe</h4>
+          </div>
           <p>This is first post</p>
         </CardHeader>
         <CardContent>
           <img src="https://i.redd.it/homprs0sjcgd1.png" className="rounded" />
-
         </CardContent>
         <CardFooter>
-          <Button variant={'ghost'}><ArrowUp /></Button>
-          <Button variant={'ghost'}><Bookmark /></Button>
+          <div className="flex flex-row justify-between ">
+            <Button className="rounded-l-full bg-gray-200" variant={"ghost"}>
+              <ArrowUp color="black" size={15} />
+            </Button>
+            <Button className="rounded-r-full bg-gray-200 " variant={"ghost"}>
+              <ArrowDown color="black" size={15} />
+            </Button>
+          </div>
+          <div className="flex flex-row px-6 gap-2">
+            <Button className="rounded-full bg-gray-200" variant={"outline"}>
+              <ChatBubbleIcon color="black" />
+            </Button>
+            <Button className="rounded-full bg-gray-200" variant={"outline"}>
+              <Bookmark color="black" size={15} />
+            </Button>
+          </div>
         </CardFooter>
       </Card>
-      <PostCard title="Jello" description="This is the first post" src="https://i.redd.it/homprs0sjcgd1.png" />
-
     </div>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;

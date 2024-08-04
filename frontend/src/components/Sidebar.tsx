@@ -1,27 +1,52 @@
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import {  Computer, Flame, Hammer, Home } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { QuestionMarkIcon } from "@radix-ui/react-icons";
+import { BookAIcon, Code2Icon, Computer, Flame, Hammer, Home, Newspaper, WorkflowIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 const SideBar = () => {
   const items = [
     {
       icon: <Home className="h-4 w-4" />,
       label: "Home",
+      to: "/",
     },
     {
       icon: <Flame className="h-4 w-4" />,
       label: "Popular",
+      to: "/popular",
     },
-  ]
-  const recents = [
+  ];
+  const topics = [
     {
-      icon: <Hammer className="h-4 w-4" />,
-      label: "Engineering Books",
+      icon: <BookAIcon className="h-4 w-4" />,
+      label: "Resources",
+      to: "/resources",
     },
     {
-      icon: <Computer className="h-4 w-4" />,
-      label: "IT Papers ",
+      icon: <Newspaper className="h-4 w-4" />,
+      label: "Alerts",
+      to: "/alerts",
     },
-  ]
+    {
+      icon: <QuestionMarkIcon className="h-4 w-4" />,
+      label: "Q&A",
+      to: "/qna",
+    },
+    {
+      icon: <WorkflowIcon className="h-4 w-4" />,
+      label: "Internships",
+      to: "/internships",
+    },
+    {
+      icon: <Code2Icon className="h-4 w-4" />,
+      label: "Hackathons",
+      to: "/hackathons",
+    },
+  ];
 
   return (
     <div className="hidden  md:block h-full w-full">
@@ -30,36 +55,42 @@ const SideBar = () => {
           <nav className="grid items-start  text-xl font-medium ">
             {items.map((item) => (
               <Link
-                to="#"
+                to={item.to}
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted/90"
                 key={item.label}
               >
                 {item.icon} {item.label}
               </Link>
             ))}
-            <Accordion type='single' collapsible  className="w-auto text-muted-foreground transition-all mt-3" defaultValue='item-1' >
-              <AccordionItem value="item-1" >
-                <AccordionTrigger className='flex justify-between w-full uppercase text-md' > Recent</AccordionTrigger>
+            <Accordion
+              type="single"
+              collapsible
+              className="w-auto text-muted-foreground transition-all mt-3"
+              defaultValue="item-1"
+            >
+              <AccordionItem value="item-1">
+                <AccordionTrigger className="flex justify-between w-full uppercase text-md">
+                  {" "}
+                  Topics{" "}
+                </AccordionTrigger>
                 <AccordionContent>
-                  {recents.map((recent) => (
-                    
+                  {topics.map((topics) => (
                     <Link
-                      to="#"
+                      to={topics.to}
                       className="flex items-center gap-3 rounded-lg text-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary hover:bg-muted/90"
-                      key={recent.label}
+                      key={topics.label}
                     >
-                      {recent.icon} {recent.label}
+                      {topics.icon} {topics.label}
                     </Link>
                   ))}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
-
           </nav>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SideBar
+export default SideBar;

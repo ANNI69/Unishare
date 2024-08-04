@@ -20,14 +20,14 @@ import { useState } from "react";
 const Navbar = () => {
   const { setTheme } = useTheme();
   const { theme } = useTheme();
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
 
   return (
     <div className="flex items-center justify-between w-full">
       <Logo />
       <SearchBar />
       <Button 
-        // onClick={() => setLogin(!login)}
+        onClick={() => setLogin(!login)}
        className="rounded-full m-4 flex items-center justify-center">
         {login ? "Create" : "Login"}
       </Button>
