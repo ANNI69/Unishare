@@ -5,8 +5,18 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { QuestionMarkIcon } from "@radix-ui/react-icons";
-import { BookAIcon, Code2Icon, Computer, Flame, Hammer, Home, Newspaper, WorkflowIcon } from "lucide-react";
+import {
+  BookAIcon,
+  Code2Icon,
+  Computer,
+  Flame,
+  Hammer,
+  Home,
+  Newspaper,
+  WorkflowIcon,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import { Separator } from "./ui/separator";
 const SideBar = () => {
   const items = [
     {
@@ -62,6 +72,8 @@ const SideBar = () => {
                 {item.icon} {item.label}
               </Link>
             ))}
+            <Separator className="my-4" />
+
             <Accordion
               type="single"
               collapsible

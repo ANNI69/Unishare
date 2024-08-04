@@ -27,7 +27,7 @@ const Navbar = () => {
       <Logo />
       <SearchBar />
       <Button 
-        onClick={() => setLogin(!login)}
+        // onClick={() => setLogin(!login)}
        className="rounded-full m-4 flex items-center justify-center">
         {login ? "Create" : "Login"}
       </Button>

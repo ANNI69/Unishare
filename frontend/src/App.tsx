@@ -11,7 +11,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import  AnimatedListDemo  from "./components/Notification";
 import Sidebar from "./components/Sidebar";
 import Feed from "./components/Feed";
-import { Button } from "./components/ui/button";
 import PopularCommunities from "./components/PopularCommunities";
 import { Separator } from "./components/ui/separator";
 function App() {

@@ -9,3 +9,5 @@ export const JWT_COOKIE_SECURE = false;
 export const JWT_COOKIE_SAME_SITE = "strict";
 export const JWT_COOKIE_HTTP_ONLY = true;
 export const JWT_COOKIE_DOMAIN = "localhost";
+export const uri =
+  "mongodb+srv://codebyanii:<password>@cluster0.jzioxnh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";

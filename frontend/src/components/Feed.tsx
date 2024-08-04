@@ -12,7 +12,7 @@ import { ChatBubbleIcon } from "@radix-ui/react-icons";
 const Feed = () => {
   return (
     <div className="w-full h-full  flex flex-col  overflow-y-scroll">
-      <Card className="m-4 hover:bg-slate-800">
+      <Card className="m-4">
         <CardHeader>
           <div className="flex flex-row items-center gap-2">
             <img
@@ -30,10 +30,10 @@ const Feed = () => {
         </CardContent>
         <CardFooter>
           <div className="flex flex-row justify-between ">
-            <Button className="rounded-l-full bg-gray-200" variant={"ghost"}>
+            <Button className=" hover:bg-slate-200 rounded-l-full bg-gray-200" variant={"ghost"}>
               <ArrowUp color="black" size={15} />
             </Button>
-            <Button className="rounded-r-full bg-gray-200 " variant={"ghost"}>
+            <Button className="hover:bg-slate-200 rounded-r-full bg-gray-200 " variant={"ghost"}>
               <ArrowDown color="black" size={15} />
             </Button>
           </div>
@@ -41,7 +41,7 @@ const Feed = () => {
             <Button className="rounded-full bg-gray-200" variant={"outline"}>
               <ChatBubbleIcon color="black" />
             </Button>
-            <Button className="rounded-full bg-gray-200" variant={"outline"}>
+            <Button className=" hover:bg-slate-200 rounded-full bg-gray-200" variant={"outline"}>
               <Bookmark color="black" size={15} />
             </Button>
           </div>
