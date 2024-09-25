@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api/communities", communityRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 
 connectToDB()
   .then(() => {

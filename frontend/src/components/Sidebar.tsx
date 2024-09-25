@@ -8,15 +8,14 @@ import { QuestionMarkIcon } from "@radix-ui/react-icons";
 import {
   BookAIcon,
   Code2Icon,
-  Computer,
   Flame,
-  Hammer,
   Home,
   Newspaper,
   WorkflowIcon,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
 const SideBar = () => {
   const items = [
     {
@@ -100,7 +99,9 @@ const SideBar = () => {
             </Accordion>
           </nav>
         </div>
+        <Button className="w-full">Create A Community</Button>
       </div>
+      
     </div>
   );
 };

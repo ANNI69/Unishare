@@ -15,7 +15,7 @@ import PopularCommunities from "./components/PopularCommunities";
 import { Separator } from "./components/ui/separator";
 function App() {
   const [loading, setLoading] = useState(true);
-  const [fullScreen, setFullScreen] = useState(true);
+  const [fullScreen] = useState(true);
 
   useEffect(() => {
     window.process = {

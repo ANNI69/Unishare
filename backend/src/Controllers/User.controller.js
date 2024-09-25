@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 import bcrypt from 'bcryptjs'
+import jsonwebtoken from 'jsonwebtoken'
 
 export const createUser = async (req, res) => {
   try {
@@ -79,6 +80,7 @@ export const deleteUser = async (req, res) => {
 }
 
 export const loginUser = async (req, res) => {
+  const jwt = jsonwebtoken;
   try {
     const { email, password } = req.body
     const user = await prisma.user.findUnique({
@@ -100,5 +102,6 @@ export const loginUser = async (req, res) => {
     res.json({ token })
   } catch (error) {
     res.status(500).json({ message: error.message })
+    console.log(error)
   }
 }

@@ -5,7 +5,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle,
+
 } from "./ui/card";
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 
@@ -21,7 +21,7 @@ const Feed = () => {
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbIkQd0Vd4G0A-D-j8WKvaDCE4Mo4B01uTJg&s"
               className="rounded-full"
             />
-            <h4>John Doe</h4>
+            <h4>Swarup</h4>
           </div>
           <p>This is first post</p>
         </CardHeader>
@@ -30,10 +30,16 @@ const Feed = () => {
         </CardContent>
         <CardFooter>
           <div className="flex flex-row justify-between ">
-            <Button className=" hover:bg-slate-200 rounded-l-full bg-gray-200" variant={"ghost"}>
+            <Button
+              className=" hover:bg-slate-200 rounded-l-full bg-gray-200"
+              variant={"ghost"}
+            >
               <ArrowUp color="black" size={15} />
             </Button>
-            <Button className="hover:bg-slate-200 rounded-r-full bg-gray-200 " variant={"ghost"}>
+            <Button
+              className="hover:bg-slate-200 rounded-r-full bg-gray-200 "
+              variant={"ghost"}
+            >
               <ArrowDown color="black" size={15} />
             </Button>
           </div>
@@ -41,7 +47,10 @@ const Feed = () => {
             <Button className="rounded-full bg-gray-200" variant={"outline"}>
               <ChatBubbleIcon color="black" />
             </Button>
-            <Button className=" hover:bg-slate-200 rounded-full bg-gray-200" variant={"outline"}>
+            <Button
+              className=" hover:bg-slate-200 rounded-full bg-gray-200"
+              variant={"outline"}
+            >
               <Bookmark color="black" size={15} />
             </Button>
           </div>

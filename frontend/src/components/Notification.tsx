@@ -2,11 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatedList } from "@/components/magicui/animated-list";
+import { CogIcon } from "lucide-react";
+
+import { LucideIcon } from "lucide-react";
 
 interface Item {
   name: string;
   description: string;
-  icon: string;
+  icon: LucideIcon;
   color: string;
   time: string;
 }
@@ -17,14 +20,14 @@ let notifications = [
     description: "You have a new post on your feed.",
     time: "15m ago",
 
-    icon: "💬",
+      icon: CogIcon,
     color: "#FFD700",
   }
 ];
 
 notifications = Array.from({ length: 1 }, () => notifications).flat();
 
-const Notification = ({ name, description, icon, color, time }: Item) => {
+const Notification = ({ name, description, time }: Item) => {
   return (
     <figure
       className={cn(
@@ -40,11 +43,9 @@ const Notification = ({ name, description, icon, color, time }: Item) => {
       <div className="flex flex-row items-center gap-2">
         <div
           // className="flex size-10 items-center justify-center rounded-2xl"
-          style={{
-            backgroundColor: color,
-          }}
+          
         >
-          <span className="text-sm">{icon}</span>
+          <span className="text-sm"><CogIcon /></span>
         </div>
         <div className="flex flex-col overflow-hidden">
           <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white ">
@@ -69,7 +70,7 @@ export default function AnimatedListDemo({
   return (
     <div
       className={cn(
-        "relative flex h-full w-full flex-col px-3 overflow-hidden bg-background",
+        "flex h-full w-full flex-col px-3 overflow-hidden bg-background",
         className
       )}
     >

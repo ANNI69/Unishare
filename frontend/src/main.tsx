@@ -26,17 +26,17 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: (
-      <ProtectedRoute>
-        <Register />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <Register />
+      //</ProtectedRoute>
     ),
   },
   {
     path: "/feed",
     element: (
-      <ProtectedRoute>
+     // <ProtectedRoute>
         <Feeds />
-      </ProtectedRoute>
+      //</ProtectedRoute>
     ),
   },
 ]);

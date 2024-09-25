@@ -11,7 +11,7 @@ import { authenticate } from "../Middlewares/Auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/", createUser);
+router.post("/createUser", createUser);
 router.get("/:id", getUser);
 router.put("/:id", authenticate, updateUser);
 router.delete("/:id", authenticate, deleteUser);
