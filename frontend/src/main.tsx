@@ -6,9 +6,10 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./components/Auth/Login.tsx";
 import Register from "./components/Auth/Register.tsx";
-import Feeds from "./components/Feeds.tsx";
+// import Feeds from "./components/Feeds.tsx";
 import AuthProvider from "./context/AuthProvider.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import CreateCommunity from "./components/Main/CreateCommunity.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,13 +33,14 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/feed",
+    path: "/createCommunity",
     element: (
-     // <ProtectedRoute>
-        <Feeds />
-      //</ProtectedRoute>
+      // <ProtectedRoute>
+        <CreateCommunity />
+      // </ProtectedRoute>
     ),
-  },
+  }
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

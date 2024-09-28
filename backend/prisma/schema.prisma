@@ -72,11 +72,14 @@ model Comment {
 model Community {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String   @unique
-  
+  moto     String?
+  imageUrl  String?
+  description String?
+    
   memberIds String[] @db.ObjectId
   moderatorIds String[] @db.ObjectId
 
   members   User[]   @relation("CommunityMembers", fields: [memberIds], references: [id])
   moderators User[]  @relation("CommunityModerators", fields: [moderatorIds], references: [id])
-  
+
 }

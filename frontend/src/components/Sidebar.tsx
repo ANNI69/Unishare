@@ -99,9 +99,11 @@ const SideBar = () => {
             </Accordion>
           </nav>
         </div>
-        <Button className="w-full">Create A Community</Button>
+        <Button className="w-full">
+          <Link to={"/createCommunity"}>Create A Community</Link>
+        </Button>
       </div>
-      
+
     </div>
   );
 };

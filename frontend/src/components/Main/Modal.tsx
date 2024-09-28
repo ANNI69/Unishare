@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import { Label } from '@radix-ui/react-label'
 import { Button } from '../ui/button'
@@ -6,10 +5,16 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../ui/card
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 
-const Modal = () => {
-    const [title, setTitle] = useState('')
-    const [file, setFile] = useState<File | null>(null)
-    const [description, setDescription] = useState('')
+interface ModalProps {
+    onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ onClose }) => {
+    const [title, setTitle] = useState('');
+    const [file, setFile] = useState<File | null>(null);
+    const [description, setDescription] = useState('');
+    const [tags, setTags] = useState<string[]>([]);
+    const [inputValue, setInputValue] = useState("");
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -17,15 +22,30 @@ const Modal = () => {
         // e.g., sending the data to an API
         console.log({ title, file, description })
     }
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter" && inputValue.trim() !== "") {
+            e.preventDefault();
+            setTags([...tags, inputValue.trim()]);
+            setInputValue("");
+        }
+    };
 
-
+    const handleRemoveTag = (indexToRemove: number) => {
+        setTags(tags.filter((_, index) => index !== indexToRemove));
+    };
     return (
         <div>
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
-                <div className="text-center">
+            <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50">
+                <div className="">
                     <Card className="w-full max-w-md mx-auto">
                         <CardHeader>
-                            <CardTitle>Upload File</CardTitle>
+                            <CardTitle>Post on UNiShare</CardTitle>
+                            <button
+                                className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                onClick={onClose}
+                            >
+                                &times;
+                            </button>
                         </CardHeader>
                         <form onSubmit={handleSubmit}>
                             <CardContent className="space-y-4">
@@ -58,23 +78,41 @@ const Modal = () => {
                                         rows={4}
                                     />
                                 </div>
+                                <div className="space-y-2">
+                                    <Label htmlFor="tags">Tags</Label>
+                                    <div className=" p-2 rounded flex flex-wrap gap-2">
+                                        {tags.map((tag, index) => (
+                                            <div
+                                                key={index}
+                                                className="bg-blue-200 text-blue-800 px-3 py-1 rounded-full flex items-center space-x-2 "
+                                            >
+                                                <span>{tag}</span>
+                                                <button
+                                                    onClick={() => handleRemoveTag(index)}
+                                                    className="text-blue-800 hover:text-blue-600"
+                                                >
+                                                    &times;
+                                                </button>
+                                            </div>
+                                        ))}
+
+                                        <Input
+                                            id="tags"
+                                            placeholder="Enter tags"
+                                            value={inputValue}
+                                            onChange={(e) => setInputValue(e.target.value)}
+                                            onKeyDown={handleKeyDown}
+                                            className="border-none flex-grow outline-none"
+                                        />
+                                    </div>
+                                </div>
+
                             </CardContent>
                             <CardFooter>
                                 <Button type="submit" className="w-full">POST</Button>
                             </CardFooter>
                         </form>
                     </Card>
-                    <div className="flex justify-center mt-4">
-
-                        {/* Navigates back to the base URL - closing the modal */}
-                        <Link
-                            to={"/"}
-                            className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
-                        >
-                            Close
-                        </Link>
-
-                    </div>
                 </div>
             </div>
         </div>

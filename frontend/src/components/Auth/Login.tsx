@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Card,
   CardHeader,
@@ -17,17 +17,27 @@ export default function Component() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null);  // State to manage user session
+
+  useEffect(() => {
+    // Check if user is already logged in (e.g., from localStorage)
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError('');
+    setLoading(true);
 
     if (!email || !password) {
-      setError('Both email and password are required')
-      setLoading(false)
-      return
+      setError('Both email and password are required');
+      setLoading(false);
+      return;
     }
+
     try {
       const response = await fetch('http://localhost:5000/api/user/login', {
         method: 'POST',
@@ -35,26 +45,32 @@ export default function Component() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        setError(errorData.message || 'Login failed')
+        const errorData = await response.json();
+        setError(errorData.message || 'Login failed');
       } else {
         const userData = await response.json();
         // Save the user data to localStorage
         localStorage.setItem('user', JSON.stringify(userData));
-        console.log('Login successful')
-        push('/feed')
+        setUser(userData); // Update the user state
+        
+
+        // Save cookie for session management
+        document.cookie = `token=${userData.token}; path=/; secure; samesite=strict`;
+
+        console.log('Login successful');
+        console.log(userData);
+        push('/');
       }
     } catch (err) {
-      setError('An unexpected error occurred')
-      console.error(err)
+      setError('An unexpected error occurred');
+      console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-zinc">
@@ -102,13 +118,11 @@ export default function Component() {
           <p>
             Don't have an account?{" "}
             <a className="text-blue-500 hover:underline">
-              <Link to="/register">
-                Register
-              </Link>
+              <Link to="/register">Register</Link>
             </a>
           </p>
         </div>
       </Card>
     </div>
-  )
+  );
 }

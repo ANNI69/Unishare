@@ -1,30 +1,37 @@
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import {
   ResizablePanelGroup,
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable.tsx";
-import { useEffect, useState } from "react";
 import Loading from "./components/Loading";
 import { AnimatePresence, motion } from "framer-motion";
-
 import AnimatedListDemo from "./components/Notification";
 import Sidebar from "./components/Sidebar";
-import Feed from "./components/Feed";
 import PopularCommunities from "./components/PopularCommunities";
 import { Separator } from "./components/ui/separator";
+
 function App() {
   const [loading, setLoading] = useState(true);
   const [fullScreen] = useState(true);
 
   useEffect(() => {
-    window.process = {
-      ...window.process,
-    };
+    // Check if the user has visited before
+    const hasVisited = localStorage.getItem("hasVisited");
 
-    setTimeout(() => {
+    if (!hasVisited) {
+      // Show animation for the first-time visitor
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        // Mark the user as visited
+        localStorage.setItem("hasVisited", "true");
+      }, 3000); // Adjust time as needed
+    } else {
+      // Skip the animation for subsequent visits
       setLoading(false);
-    }, 3000); // Adjust time as needed
+    }
   }, []);
 
   if (loading)
@@ -35,13 +42,13 @@ function App() {
     );
 
   return (
-    <>
-      <motion.div
-        className="flex flex-col h-screen w-screen"
-        layout
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
+    <motion.div
+      className="flex flex-col h-screen w-screen"
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
+      <div className="h-screen">
         <ResizablePanelGroup
           direction="horizontal"
           className="max-w-screen rounded-lg border"
@@ -63,9 +70,8 @@ function App() {
                   </ResizablePanel>
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
-                    <div className="flex h-full items-center justify-center">
-                      <Feed />
-                      {/* <Button onClick={() => setFullScreen(!fullScreen)}>Toggle Full Screen</Button> */}
+                    <div className="flex h-full flex-col items-center justify-start p-6 overflow-y-auto">
+                      {/* <Feed /> */}
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />
@@ -74,9 +80,7 @@ function App() {
                       <div className="flex h-full flex-col pt-3">
                         <AnimatedListDemo />
                         <Separator className="my-4" />
-                        {/* // If user is logged in, show notifications */}
                         <PopularCommunities />
-                        {/* // show popular communities, if user is not logged in, show login form */}
                       </div>
                     </ResizablePanel>
                   )}
@@ -85,8 +89,8 @@ function App() {
             </ResizablePanelGroup>
           </ResizablePanel>
         </ResizablePanelGroup>
-      </motion.div>
-    </>
+      </div>
+    </motion.div>
   );
 }
 

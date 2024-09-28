@@ -16,8 +16,8 @@ import { authenticate } from "../Middlewares/Auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/", authenticate, createCommunity);
-router.get("/", getCommunities);
+router.post("/createCommunity", authenticate, createCommunity);
+router.get("/getCoomunity", getCommunities);
 router.get("/:id", getCommunity);
 router.put("/:id", authenticate, updateCommunity);
 router.delete("/:id", authenticate, deleteCommunity);

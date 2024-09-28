@@ -5,13 +5,15 @@ const prisma = new PrismaClient();
 
 export const createCommunity = async (req, res) => {
   try {
-    const { name, description } = req.body;
+    const { name, description,moto,imageUrl } = req.body;
     const creatorId = req.user.id; // Assuming you have user info in req.user after authentication
 
     const newCommunity = await prisma.community.create({
       data: {
         name,
         description,
+        moto,
+        imageUrl,
         members: { connect: { id: creatorId } },
         moderators: { connect: { id: creatorId } },
         memberIds: [creatorId],

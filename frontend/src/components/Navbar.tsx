@@ -37,8 +37,12 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    // Clear the cookie by setting an expired date
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    // Reset user state
+    // setUser(null);
     setIsLoggedIn(false);
-    push('/login');
+    push('/');
   };
 
 
@@ -63,10 +67,9 @@ const Navbar = () => {
         {isLoggedIn ? "Create Post" : "Login"}
       </Button>
       {showModal &&
-            <Modal onClose={() => setShowModal(false)}>
-                Hello from the modal!
-            </Modal>
-        }
+        <Modal onClose={() => setShowModal(false)}>
+        </Modal>
+      }
       <div>
         {isLoggedIn && (
           <Sheet>
@@ -111,7 +114,7 @@ const Navbar = () => {
               </div>
               <div className="flex flex-col space-y-2 pt-4">
                 <Button className="w-full" onClick={handleLogout}>
-                Logout</Button>
+                  Logout</Button>
               </div>
             </SheetContent>
           </Sheet>
