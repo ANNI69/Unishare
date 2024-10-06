@@ -17,7 +17,7 @@ export default function CreateCommunity() {
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const  push  = useNavigate();
+  const push = useNavigate();
 
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -77,7 +77,7 @@ export default function CreateCommunity() {
         setMotto('');
         setImageUrl('');
         setDescription('');
-        if(response.ok){
+        if (response.ok) {
           push('/');
           alert('Community created successfully');
         } // Redirect to the home page
@@ -92,64 +92,66 @@ export default function CreateCommunity() {
 
   return (
     <div className="flex justify-center items-center">
-      <Card className="w-full max-w-2xl mx-auto ">
-        <CardHeader>
-          <CardTitle>Create a New Community</CardTitle>
-          <CardDescription>Fill in the details to create your community</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">Community Name*</Label>
-              <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter community name"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="motto">Motto</Label>
-              <Input
-                id="motto"
-                value={motto}
-                onChange={(e) => setMotto(e.target.value)}
-                placeholder="Enter community motto"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="imageUrl">Pfp</Label>
-              <Input
-                id="imageUrl"
-                type="text"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
-                placeholder="Enter Image URL"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="description">Description</Label>
-              <Textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                placeholder="Enter community description"
-                rows={4}
-              />
-            </div>
-            {error && (
-              <div className="flex items-center text-red-600 space-x-2">
-                <AlertCircle size={16} />
-                <span>{error}</span>
+      <div className="w-full max-w-2xl p-4">
+        <Card className="w-full max-w-2xl mx-auto ">
+          <CardHeader>
+            <CardTitle>Create a New Community</CardTitle>
+            <CardDescription>Fill in the details to create your community</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="name">Community Name*</Label>
+                <Input
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter community name"
+                  required
+                />
               </div>
-            )}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? 'Creating...' : 'Create Community'}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+              <div className="space-y-2">
+                <Label htmlFor="motto">Motto</Label>
+                <Input
+                  id="motto"
+                  value={motto}
+                  onChange={(e) => setMotto(e.target.value)}
+                  placeholder="Enter community motto"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="imageUrl">Pfp</Label>
+                <Input
+                  id="imageUrl"
+                  type="text"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  placeholder="Enter Image URL"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="description">Description</Label>
+                <Textarea
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Enter community description"
+                  rows={4}
+                />
+              </div>
+              {error && (
+                <div className="flex items-center text-red-600 space-x-2">
+                  <AlertCircle size={16} />
+                  <span>{error}</span>
+                </div>
+              )}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Creating...' : 'Create Community'}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

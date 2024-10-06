@@ -45,6 +45,13 @@ const Navbar = () => {
     push('/');
   };
 
+  const getCurrentUser = () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+      return JSON.parse(user).user.email;
+    }
+  }
+
 
 
   return (
@@ -87,10 +94,27 @@ const Navbar = () => {
                 <SheetTitle>View Profile</SheetTitle>
                 <SheetDescription>
                   <div className="flex items-center space-x-4">
-                    <Skeleton className="h-12 w-12 rounded-full" />
+                    {
+                      getCurrentUser() ? (
+                        <Avatar>
+                          <AvatarImage
+                            className="w-[50px] h-[40px]"
+                            src="https://github.com/shadcn.png"
+                            alt="User"
+                          />
+                        </Avatar>
+                      ) : (
+                        <Skeleton className="h-10 w-10" />
+                      )
+                    }
                     <div className="space-y-2">
-                      <Skeleton className="h-4 w-[250px]" />
-                      <Skeleton className="h-4 w-[200px]" />
+                      {
+                        getCurrentUser() ? (
+                          <p className="text-lg font-semibold">{getCurrentUser()}</p>
+                        ) : (
+                          <Skeleton className="h-5 w-20" />
+                        )
+                      }
                     </div>
                   </div>
                 </SheetDescription>

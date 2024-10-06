@@ -45,6 +45,7 @@ model Post {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
   content   String
+  image     Bytes?
   authorId  String   @db.ObjectId
   author    User     @relation("PostAuthor", fields: [authorId], references: [id])
   

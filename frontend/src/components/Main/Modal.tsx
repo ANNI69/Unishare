@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-import { Label } from '@radix-ui/react-label'
-import { Button } from '../ui/button'
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../ui/card'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Label } from '@radix-ui/react-label';
+import { Button } from '../ui/button';
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../ui/card';
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
 
 interface ModalProps {
     onClose: () => void;
@@ -14,15 +15,43 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const [file, setFile] = useState<File | null>(null);
     const [description, setDescription] = useState('');
     const [tags, setTags] = useState<string[]>([]);
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        // Here you would typically handle the form submission,
-        // e.g., sending the data to an API
-        console.log({ title, file, description })
-    }
-    const handleKeyDown = (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('tags', JSON.stringify(tags));
+        formData.append('file', file);
+
+        try {
+            setLoading(true);
+            // Retrieve token and userId from localStorage
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDAwYWE1ZjVmMDJmY2MzODBiMTc0YiIsImlhdCI6MTcyODEyMTE3NX0.oALk0Q3KlMBMMi44my7CvFn8OaTJA130o3Co0Y-ME9k';
+            const userId = localStorage.getItem('user'); // assuming the userId is stored in localStorag
+
+            const response = await axios.post('http://localhost:5000/api/post/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`, // Add token to the Authorization header
+                    // 'userId': userId || '', // Include userId in the header if available
+                },
+            });
+
+            console.log('File uploaded successfully', response.data);
+            setLoading(false);
+            onClose();
+        } catch (error) {
+            console.error('Error uploading the file', error);
+            setLoading(false);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "Enter" && inputValue.trim() !== "") {
             e.preventDefault();
             setTags([...tags, inputValue.trim()]);
@@ -33,6 +62,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
     const handleRemoveTag = (indexToRemove: number) => {
         setTags(tags.filter((_, index) => index !== indexToRemove));
     };
+
     return (
         <div>
             <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50">
@@ -80,7 +110,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                                 </div>
                                 <div className="space-y-2">
                                     <Label htmlFor="tags">Tags</Label>
-                                    <div className=" p-2 rounded flex flex-wrap gap-2">
+                                    <div className="p-2 rounded flex flex-wrap gap-2">
                                         {tags.map((tag, index) => (
                                             <div
                                                 key={index}
@@ -106,17 +136,18 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
                                         />
                                     </div>
                                 </div>
-
                             </CardContent>
                             <CardFooter>
-                                <Button type="submit" className="w-full">POST</Button>
+                                <Button type="submit" className="w-full" disabled={loading}>
+                                    {loading ? 'Uploading...' : 'POST'}
+                                </Button>
                             </CardFooter>
                         </form>
                     </Card>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Modal
+export default Modal;

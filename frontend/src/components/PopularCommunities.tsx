@@ -22,6 +22,7 @@ const PopularCommunities = () => {
         }
         const data = await response.json();
         setCommunities(data);  // Assuming API returns an array of communities
+        console.log(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -31,6 +32,13 @@ const PopularCommunities = () => {
 
     fetchCommunities();
   }, []);
+
+  const JoinCommunity = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const communityName = (e.currentTarget as HTMLButtonElement).closest('div')?.querySelector('h4')?.textContent;
+    alert(`Do You Want to Join ${communityName}`);
+    
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,8 +58,8 @@ const PopularCommunities = () => {
               <div key={community.id} className="hover:bg-slate-200 dark:hover:bg-black flex items-center justify-between p-2 my-2 bg-background rounded-lg">
                 <div className="flex items-center">
                   <img
-                    src={community.image || 'https://picsum.photos/200'}
-                    alt={community.name}
+                    src={community.imageUrl}
+                    // alt={community.name}
                     className="w-8 h-8 rounded-full"
                   />
                   <div className="flex flex-col ml-2">
@@ -59,7 +67,7 @@ const PopularCommunities = () => {
                     <p className="text-xs">{community.description}</p>
                   </div>
                 </div>
-                <button className="px-2 py-1 text-xs bg-primary-alt rounded-lg dark:bg-black text-blue">
+                <button onClick={JoinCommunity} className="px-2 py-1 text-xs bg-primary-alt rounded-lg dark:bg-black text-blue">
                   Join
                 </button>
               </div>

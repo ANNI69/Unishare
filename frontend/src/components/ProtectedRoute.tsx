@@ -1,16 +1,20 @@
-import { useAuth } from "@/context/AuthProvider";
 import { PropsWithChildren, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-type ProtectedRouteProps = PropsWithChildren;
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const user = useAuth();
+import Cookies from "js-cookie";
 
+type ProtectedRouteProps = PropsWithChildren;
+
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user === null) {
+    // Check for the authentication token in cookies
+    const token = Cookies.get("token");
+
+    if (!token) {
       navigate("/login", { replace: true });
     }
-  }, [user, navigate]);
+  }, [navigate]);
+
   return <>{children}</>;
 }

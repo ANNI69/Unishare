@@ -53,7 +53,7 @@ const SideBar = () => {
     {
       icon: <Code2Icon className="h-4 w-4" />,
       label: "Hackathons",
-      to: "/hackathons",
+      to: "/hackaton",
     },
   ];
 

@@ -10,6 +10,11 @@ import Register from "./components/Auth/Register.tsx";
 import AuthProvider from "./context/AuthProvider.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import CreateCommunity from "./components/Main/CreateCommunity.tsx";
+import Resources from "./components/Main/Resources.tsx";
+import QANDA from "./components/Main/Q&A.tsx";
+import Hackathon from "./components/Main/Hackathon.tsx";
+import Alerts from "./components/Main/Alerts.tsx";
+import Internships from "./components/Main/Internships.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,19 +32,60 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: (
-      // <ProtectedRoute>
-      <Register />
-      //</ProtectedRoute>
+      <ProtectedRoute>
+        <Register />
+      </ProtectedRoute>
     ),
   },
   {
     path: "/createCommunity",
     element: (
-      // <ProtectedRoute>
+      <ProtectedRoute>
         <CreateCommunity />
-      // </ProtectedRoute>
+      </ProtectedRoute>
     ),
-  }
+  },
+  {
+
+    path: "/resources",
+    element: (
+      <ProtectedRoute>
+        <Resources />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/qna",
+    element: (
+      <ProtectedRoute>
+        <QANDA />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/hackaton",
+    element: (
+      <ProtectedRoute>
+        <Hackathon />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/alerts",
+    element: (
+      <ProtectedRoute>
+        <Alerts />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/internships",
+    element: (
+      <ProtectedRoute>
+        <Internships />
+      </ProtectedRoute>
+    ),
+  },
 
 ]);
 

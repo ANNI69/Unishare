@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Use routes
 app.use("/api/communities", communityRoutes);
 app.use("/api/comments", commentRoutes);
-app.use("/api/posts", postRoutes);
+app.use("/api/post", postRoutes);
 app.use("/api/user", userRoutes);
 
 connectToDB()

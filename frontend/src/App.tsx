@@ -11,6 +11,7 @@ import AnimatedListDemo from "./components/Notification";
 import Sidebar from "./components/Sidebar";
 import PopularCommunities from "./components/PopularCommunities";
 import { Separator } from "./components/ui/separator";
+import Post from "./components/Feed";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -34,12 +35,53 @@ function App() {
     }
   }, []);
 
+
+
   if (loading)
     return (
       <AnimatePresence mode="popLayout">
         {loading && <Loading />}
       </AnimatePresence>
     );
+    const posts = [
+      {
+        username: "Swarup",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D03AQHQhPjU1wfcqQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1713977734018?e=1733961600&v=beta&t=MddYszD2JlF4kFFh0uG34GvrhPhMFsGgOMj2y5fWRuA",
+        postText: "Register Here ",
+        postImage: "https://i.ibb.co/8xkb6rR/Whats-App-Image-2024-10-03-at-3-35-02-PM.jpg",
+      },
+      {
+        username: "Aniruddh ",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D35AQHNuqhjX35Ptw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1701268826794?e=1728813600&v=beta&t=io87DkfIo9xOhNCQS0pKomGGDV3ntpzKF3f1kPIOhPE",
+        postText: "TE Students Must Attend",
+        postImage: "https://i.ibb.co/SR58Pvs/Whats-App-Image-2024-08-28-at-5-27-02-PM.jpg",
+      },
+      {
+        username: "Soham",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D35AQEsduHjWBvYNw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1718946851977?e=1728813600&v=beta&t=0qXAxM350yccqt1KM3mQzUkcpPgSCTUjR8HCwYe2_Ns",
+        postText: "This is third post",
+        postImage: "https://i.redd.it/homprs0sjcgd1.png",
+      },
+      {
+        username: "Swarup",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D03AQHQhPjU1wfcqQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1713977734018?e=1733961600&v=beta&t=MddYszD2JlF4kFFh0uG34GvrhPhMFsGgOMj2y5fWRuA",
+        postText: "Register Here ",
+        postImage: "https://i.ibb.co/8xkb6rR/Whats-App-Image-2024-10-03-at-3-35-02-PM.jpg",
+      },
+      {
+        username: "Soham",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D35AQEsduHjWBvYNw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1718946851977?e=1728813600&v=beta&t=0qXAxM350yccqt1KM3mQzUkcpPgSCTUjR8HCwYe2_Ns",
+        postText: "This is third post",
+        postImage: "https://i.redd.it/homprs0sjcgd1.png",
+      },
+      {
+        username: "Aniruddh ",
+        userImage: "https://media.licdn.com/dms/image/v2/D4D35AQHNuqhjX35Ptw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1701268826794?e=1728813600&v=beta&t=io87DkfIo9xOhNCQS0pKomGGDV3ntpzKF3f1kPIOhPE",
+        postText: "TE Students Must Attend",
+        postImage: "https://i.ibb.co/SR58Pvs/Whats-App-Image-2024-08-28-at-5-27-02-PM.jpg",
+      },
+      // Add more posts here
+    ];
 
   return (
     <motion.div
@@ -71,7 +113,15 @@ function App() {
                   <ResizableHandle />
                   <ResizablePanel defaultSize={90}>
                     <div className="flex h-full flex-col items-center justify-start p-6 overflow-y-auto">
-                      {/* <Feed /> */}
+                      {posts.map((post, index) => (
+                        <Post
+                          key={index}
+                          username={post.username}
+                          userImage={post.userImage}
+                          postText={post.postText}
+                          postImage={post.postImage}
+                        />
+                      ))}
                     </div>
                   </ResizablePanel>
                   <ResizableHandle />

@@ -55,13 +55,11 @@ export default function Component() {
         // Save the user data to localStorage
         localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData); // Update the user state
-        
-
+        console.log(userData);
         // Save cookie for session management
         document.cookie = `token=${userData.token}; path=/; secure; samesite=strict`;
 
         console.log('Login successful');
-        console.log(userData);
         push('/');
       }
     } catch (err) {

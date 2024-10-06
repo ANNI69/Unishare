@@ -46,7 +46,7 @@ export default function Component() {
       } else {
         // Handle successful registration, e.g., redirect or show success message
         console.log('Registration successful')
-        navigate('/feed');
+        navigate('/login');
       }
     } catch (err) {
       setError('An unexpected error occurred')
