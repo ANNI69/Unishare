@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({ onClose }) => {
             setLoading(true);
             // Retrieve token and userId from localStorage
             const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MDAwYWE1ZjVmMDJmY2MzODBiMTc0YiIsImlhdCI6MTcyODEyMTE3NX0.oALk0Q3KlMBMMi44my7CvFn8OaTJA130o3Co0Y-ME9k';
-            const userId = localStorage.getItem('user'); // assuming the userId is stored in localStorag
+            // const userId = localStorage.getItem('user'); // assuming the userId is stored in localStorag
 
             const response = await axios.post('http://localhost:5000/api/post/', formData, {
                 headers: {

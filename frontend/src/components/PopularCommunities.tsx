@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const PopularCommunities = () => {
   interface Community {
+    imageUrl: string | undefined;
     id: string;
     name: string;
     description: string;
@@ -24,7 +25,7 @@ const PopularCommunities = () => {
         setCommunities(data);  // Assuming API returns an array of communities
         console.log(data);
       } catch (error) {
-        setError(error.message);
+        // setError(error.message);
       } finally {
         setLoading(false);
       }

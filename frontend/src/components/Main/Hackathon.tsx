@@ -84,33 +84,4 @@ function Hackathon() {
     );
 }
 
-interface CardProps {
-    imageSrc: string;
-    tag: string;
-    publicationDate: string;
-    title: string;
-    description: string;
-    imageSourceLink: string;
-}
-
-function Card({
-    imageSrc,
-    title,
-    imageSourceLink,
-}: CardProps) {
-    return (
-        <>
-            <div className="flex flex-col w-full max-w-3xl mx-auto">
-                <ul className="card-list">
-                    <li className="card">
-                        <a className="card-image" href={imageSrc} target="_blank" style={{ backgroundImage: `url(${imageSrc})` }} data-image-full={imageSrc}>
-                            <img src={imageSrc} alt={title} />
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </>
-    );
-}
-
 export default Hackathon;
