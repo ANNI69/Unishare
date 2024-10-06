@@ -17,7 +17,6 @@ export default function Component() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  // const [ setUser] = useState(null);  // State to manage user session
 
   useEffect(() => {
     // Check if user is already logged in (e.g., from localStorage)
