@@ -24,17 +24,13 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <ProtectedRoute>
         <Login />
-      </ProtectedRoute>
     ),
   },
   {
     path: "/register",
     element: (
-      <ProtectedRoute>
         <Register />
-      </ProtectedRoute>
     ),
   },
   {

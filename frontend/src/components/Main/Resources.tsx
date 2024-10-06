@@ -56,6 +56,11 @@ function Resources() {
                     </ResizablePanel>
                 </ResizablePanelGroup>
             </div>
+            <div className="fixed bottom-4 right-4">
+                <button className="bg-white hover:bg-slate-900 hover:text-white text-black font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                    +
+                </button>
+            </div>
         </motion.div>
     );
 }

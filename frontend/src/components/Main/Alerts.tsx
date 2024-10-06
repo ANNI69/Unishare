@@ -6,8 +6,22 @@ import {
 } from "@/components/ui/resizable.tsx";
 import { motion } from "framer-motion";
 import Sidebar from "../Sidebar";
+import './Alerts.css'
 
 function Alerts() {
+    const newsItems: NewsItem[] = [
+        {
+            title: "SIH 2024 Date Extended !!!",
+            content:
+                "The last date for submission of ideas for SIH 2024 has been extended to 1st October 2024.",
+        },
+        {
+            title: "IA Dates Of Comps,It, AIDS !!!",
+            content:
+                "The internal assessment dates for the subjects Computer Networks, Information Theory, and Artificial Intelligence and Distributed Systems have been announced.",
+        },
+
+    ];
 
     return (
         <motion.div
@@ -38,14 +52,7 @@ function Alerts() {
                                     </ResizablePanel>
                                     <ResizableHandle />
                                     <ResizablePanel defaultSize={90}>
-                                        <div className="flex h-full p-6 overflow-y-auto w-full">
-                                            <div className="flex flex-col items-center justify-center w-full">
-                                                <h1 className="text-3xl font-bold"> Alerts </h1>
-                                                <p className="text-lg font-light">
-                                                    Welcome to the Alerts page!                         
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <News items={newsItems} />
                                     </ResizablePanel>
                                     <ResizableHandle />
                                 </ResizablePanelGroup>
@@ -54,7 +61,40 @@ function Alerts() {
                     </ResizablePanel>
                 </ResizablePanelGroup>
             </div>
+
+            {/* Floating + button */}
+            <div className="fixed bottom-4 right-4">
+                <button className="bg-white hover:bg-slate-900 hover:text-white text-black font-bold rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                    +
+                </button>
+            </div>
         </motion.div>
+
+    );
+}
+
+interface NewsItem {
+    title: string;
+    content: string;
+}
+
+interface NewsProps {
+    items: NewsItem[];
+}
+
+function News({ items }: NewsProps) {
+    return (
+        <div>
+            <section id="news" className="news">
+                {items.map((item, index) => (
+                    <div key={index} className="news-item">
+                        <h3>{item.title}</h3>
+                        <p>{item.content}</p>
+                        <button className="button-click">Read More</button>
+                    </div>
+                ))}
+            </section>
+        </div>
     );
 }
 
