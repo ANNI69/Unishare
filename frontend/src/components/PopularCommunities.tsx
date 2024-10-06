@@ -11,7 +11,7 @@ const PopularCommunities = () => {
 
   const [communities, setCommunities] = useState<Community[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error] = useState(null);
 
   // Fetch communities from API
   useEffect(() => {

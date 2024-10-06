@@ -23,7 +23,7 @@ export default function Component() {
     // Check if user is already logged in (e.g., from localStorage)
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      // setUser(JSON.parse(storedUser));
     }
   }, []);
 
@@ -54,7 +54,7 @@ export default function Component() {
         const userData = await response.json();
         // Save the user data to localStorage
         localStorage.setItem('user', JSON.stringify(userData));
-        setUser(userData); // Update the user state
+        // setUser(userData); // Update the user state
         console.log(userData);
         // Save cookie for session management
         document.cookie = `token=${userData.token}; path=/; secure; samesite=strict`;
